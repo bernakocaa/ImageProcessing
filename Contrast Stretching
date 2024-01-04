@@ -1,0 +1,34 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+def contrast_stretching(image_path, lower_percentile=5, upper_percentile=95):
+    # Görüntüyü oku
+    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
+    # Piksel değerlerini tek boyutlu bir dizide sakla
+    pixel_values = img.flatten()
+
+    # Percentile değerleri kullanarak minimum ve maksimum değerleri belirle
+    min_val = np.percentile(pixel_values, lower_percentile)
+    max_val = np.percentile(pixel_values, upper_percentile)
+
+    # Contrast stretching işlemi
+    stretched_img = np.clip((img - min_val) / (max_val - min_val) * 255, 0, 255).astype(np.uint8)
+
+    # Görüntü ve contrast stretched görüntüyü görselleştir
+    plt.figure(figsize=(12, 6))
+
+    plt.subplot(1, 2, 1)
+    plt.title('Original Image')
+    plt.imshow(img, cmap='gray')
+
+    plt.subplot(1, 2, 2)
+    plt.title('Contrast Stretched Image')
+    plt.imshow(stretched_img, cmap='gray')
+
+    plt.show()
+
+# Örnek kullanım
+image_path = 'path/to/your/image.jpg'
+contrast_stretching(image_path)
