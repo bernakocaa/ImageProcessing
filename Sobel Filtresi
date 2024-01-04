@@ -1,0 +1,44 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+def sobel_filter(image_path):
+    # Görüntüyü oku
+    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
+    # Sobel filtresi uygulama
+    sobelx = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=3)
+    sobely = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=3)
+
+    # Magnitude ve Açı hesaplama
+    gradient_magnitude = np.sqrt(sobelx**2 + sobely**2)
+    gradient_angle = np.arctan2(sobely, sobelx) * (180 / np.pi)
+
+    # Görüntü ve Sobel filtre uygulanmış görüntüleri görselleştir
+    plt.figure(figsize=(15, 6))
+
+    plt.subplot(2, 3, 1)
+    plt.title('Original Image')
+    plt.imshow(img, cmap='gray')
+
+    plt.subplot(2, 3, 2)
+    plt.title('Sobel X')
+    plt.imshow(cv2.convertScaleAbs(sobelx), cmap='gray')
+
+    plt.subplot(2, 3, 3)
+    plt.title('Sobel Y')
+    plt.imshow(cv2.convertScaleAbs(sobely), cmap='gray')
+
+    plt.subplot(2, 3, 4)
+    plt.title('Gradient Magnitude')
+    plt.imshow(gradient_magnitude, cmap='gray')
+
+    plt.subplot(2, 3, 5)
+    plt.title('Gradient Angle')
+    plt.imshow(gradient_angle, cmap='gray')
+
+    plt.show()
+
+# Örnek kullanım
+image_path = 'path/to/your/image.jpg'
+sobel_filter(image_path)
