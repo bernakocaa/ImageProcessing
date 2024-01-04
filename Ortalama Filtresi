@@ -1,0 +1,27 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+def mean_filter(image_path, kernel_size=3):
+    # Görüntüyü oku
+    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
+    # Ortalama filtresi uygulama
+    mean_filtered_img = cv2.blur(img, (kernel_size, kernel_size))
+
+    # Görüntü ve ortalama filtre uygulanmış görüntüyü görselleştir
+    plt.figure(figsize=(12, 6))
+
+    plt.subplot(1, 2, 1)
+    plt.title('Original Image')
+    plt.imshow(img, cmap='gray')
+
+    plt.subplot(1, 2, 2)
+    plt.title(f'Mean Filtered Image (Kernel Size={kernel_size})')
+    plt.imshow(mean_filtered_img, cmap='gray')
+
+    plt.show()
+
+# Örnek kullanım
+image_path = 'path/to/your/image.jpg'
+mean_filter(image_path, kernel_size=3)
