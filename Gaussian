@@ -1,0 +1,27 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+def gaussian_blur(image_path, kernel_size=5):
+    # Görüntüyü oku
+    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
+    # Gaussian filtresi uygulama
+    gaussian_blurred_img = cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
+
+    # Görüntü ve Gaussian filtresi uygulanmış görüntüyü görselleştir
+    plt.figure(figsize=(12, 6))
+
+    plt.subplot(1, 2, 1)
+    plt.title('Original Image')
+    plt.imshow(img, cmap='gray')
+
+    plt.subplot(1, 2, 2)
+    plt.title(f'Gaussian Blurred Image (Kernel Size={kernel_size})')
+    plt.imshow(gaussian_blurred_img, cmap='gray')
+
+    plt.show()
+
+# Örnek kullanım
+image_path = 'path/to/your/image.jpg'
+gaussian_blur(image_path, kernel_size=5)
