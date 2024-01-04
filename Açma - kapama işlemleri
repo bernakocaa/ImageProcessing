@@ -1,0 +1,34 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+def opening_closing_example(image_path, kernel_size=3):
+    # Görüntüyü oku
+    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
+    # Açma işlemi uygula
+    opening = cv2.morphologyEx(img, cv2.MORPH_OPEN, np.ones((kernel_size, kernel_size), np.uint8))
+
+    # Kapama işlemi uygula
+    closing = cv2.morphologyEx(img, cv2.MORPH_CLOSE, np.ones((kernel_size, kernel_size), np.uint8))
+
+    # Görüntü ve işlemler sonrası görüntüleri görselleştir
+    plt.figure(figsize=(12, 8))
+
+    plt.subplot(2, 2, 1)
+    plt.title('Original Image')
+    plt.imshow(img, cmap='gray')
+
+    plt.subplot(2, 2, 2)
+    plt.title('Opened Image')
+    plt.imshow(opening, cmap='gray')
+
+    plt.subplot(2, 2, 3)
+    plt.title('Closed Image')
+    plt.imshow(closing, cmap='gray')
+
+    plt.show()
+
+# Örnek kullanım
+image_path = 'path/to/your/image.jpg'
+opening_closing_example(image_path, kernel_size=3)
