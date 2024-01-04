@@ -1,0 +1,34 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+def laplace_blur(image_path, kernel_size=5):
+    # Görüntüyü oku
+    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
+    # Laplace filtresi uygula
+    laplacian = cv2.Laplacian(img, cv2.CV_64F, ksize=kernel_size)
+
+    # Blurring (bulanıklaştırma) işlemi uygula
+    blurred_img = cv2.blur(laplacian, (kernel_size, kernel_size))
+
+    # Görüntü ve işlemler sonrası görüntüleri görselleştir
+    plt.figure(figsize=(12, 6))
+
+    plt.subplot(1, 3, 1)
+    plt.title('Original Image')
+    plt.imshow(img, cmap='gray')
+
+    plt.subplot(1, 3, 2)
+    plt.title('Laplacian Filter')
+    plt.imshow(cv2.convertScaleAbs(laplacian), cmap='gray')
+
+    plt.subplot(1, 3, 3)
+    plt.title('Blurred Image after Laplace')
+    plt.imshow(blurred_img, cmap='gray')
+
+    plt.show()
+
+# Örnek kullanım
+image_path = 'path/to/your/image.jpg'
+laplace_blur(image_path, kernel_size=5)
