@@ -1,0 +1,28 @@
+import numpy as np
+
+# Veri örneği
+data = np.array([[2.0, 5.0, 8.0],
+                 [10.0, 12.0, 15.0],
+                 [21.0, 25.0, 30.0]])
+
+# Normalizasyon
+def normalize(data):
+    min_vals = np.min(data, axis=0)
+    max_vals = np.max(data, axis=0)
+    normalized_data = (data - min_vals) / (max_vals - min_vals)
+    return normalized_data
+
+normalized_data = normalize(data)
+print("Normalized Data:")
+print(normalized_data)
+
+# Standardizasyon
+def standardize(data):
+    mean_vals = np.mean(data, axis=0)
+    std_devs = np.std(data, axis=0)
+    standardized_data = (data - mean_vals) / std_devs
+    return standardized_data
+
+standardized_data = standardize(data)
+print("\nStandardized Data:")
+print(standardized_data)
